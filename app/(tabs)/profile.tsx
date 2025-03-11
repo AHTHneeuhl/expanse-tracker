@@ -8,7 +8,7 @@ import { getProfileImage } from "@/services/imageService";
 import { accountOptionType } from "@/types";
 import { verticalScale } from "@/utils/styling";
 import { Image } from "expo-image";
-import { useRouter } from "expo-router";
+import { Href, useRouter } from "expo-router";
 import { signOut } from "firebase/auth";
 import * as Icons from "phosphor-react-native";
 import React from "react";
@@ -72,8 +72,7 @@ const Profile = () => {
       showLogoutAlert();
     }
 
-    if (item.title === "Edit Profile") {
-    }
+    if (item.routeName) router.push(item.routeName as Href);
   };
 
   return (

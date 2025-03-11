@@ -38,7 +38,7 @@ const ProfileModal = () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ["images"],
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 0.5,
     });
 
@@ -83,39 +83,43 @@ const ProfileModal = () => {
           leftIcon={<BackButton />}
           style={{ marginBottom: spacingY._10 }}
         />
+
+        <ScrollView contentContainerStyle={styles.form}>
+          <View style={styles.avatarContainer}>
+            <Image
+              style={styles.avatar}
+              source={getProfileImage(userDetails.image)}
+              contentFit="cover"
+              transition={100}
+            />
+            <TouchableOpacity onPress={onPickImage} style={styles.editIcon}>
+              <Icons.Pencil
+                size={verticalScale(20)}
+                color={colors.neutral800}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Typo color={colors.neutral200}>Name</Typo>
+            <Input
+              placeholder="Name"
+              value={userDetails.name}
+              onChange={(event) =>
+                setUserDetails({ ...userDetails, name: event.nativeEvent.text })
+              }
+            />
+          </View>
+        </ScrollView>
       </View>
-      <ScrollView contentContainerStyle={styles.form}>
-        <View style={styles.avatarContainer}>
-          <Image
-            style={styles.avatar}
-            source={getProfileImage(userDetails.image)}
-            contentFit="cover"
-            transition={100}
-          />
-          <TouchableOpacity onPress={onPickImage} style={styles.editIcon}>
-            <Icons.Pencil size={verticalScale(20)} color={colors.neutral800} />
-          </TouchableOpacity>
-        </View>
 
-        <View style={styles.inputContainer}>
-          <Typo color={colors.neutral200}>Name</Typo>
-          <Input
-            placeholder="Name"
-            value={userDetails.name}
-            onChange={(event) =>
-              setUserDetails({ ...userDetails, name: event.nativeEvent.text })
-            }
-          />
-        </View>
-
-        <View style={styles.footer}>
-          <Button onPress={onSubmit} style={{ flex: 1 }} loading={loading}>
-            <Typo color={colors.black} fontWeight="700">
-              Update
-            </Typo>
-          </Button>
-        </View>
-      </ScrollView>
+      <View style={styles.footer}>
+        <Button onPress={onSubmit} style={{ flex: 1 }} loading={loading}>
+          <Typo color={colors.black} fontWeight="700">
+            Update
+          </Typo>
+        </Button>
+      </View>
     </ModalWrapper>
   );
 };
@@ -133,7 +137,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     paddingHorizontal: spacingX._20,
-    gap: scale(20),
+    gap: scale(12),
     paddingTop: spacingY._15,
     borderTopColor: colors.neutral700,
     marginBottom: spacingY._5,
